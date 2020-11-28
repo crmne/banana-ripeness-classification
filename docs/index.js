@@ -58,9 +58,9 @@ async function showResult(logits) {
 
     const class_idx = logits.argMax(1).dataSync();
     const message = {
-        0: `This banana looks ${(values[0] * 100).toFixed(2)}% green!`,
-        1: `This banana looks ${(values[1] * 100).toFixed(2)}% rotten or overripe.`,
-        2: `Looks ${(values[2] * 100).toFixed(2)}% ripe to me!`
+        0: `I'm ${(values[0] * 100).toFixed(2)}% confident that this banana is green!`,
+        1: `I'm ${(values[1] * 100).toFixed(2)}% confident that this banana is rotten or overripe.`,
+        2: `I'm ${(values[2] * 100).toFixed(2)}% confident that this banana is ripe!`
     }
     predict_result.innerText = message[class_idx];
 }
