@@ -47,22 +47,21 @@ async function predict(image) {
     });
 
     showResult(logits);
-    
+
     const totalTime = performance.now() - startTime;
     status(`Done in ${Math.floor(totalTime)}ms.`);
 }
 
 async function showResult(logits) {
-    const message = {
-        0: 'This banana looks a little green! Wait a little longer before eating it.',
-        1: 'This banana looks rotten or overripe. I would not eat it if I were you.',
-        2: 'Yum! Looks ripe to me!'
-    }
-
     const values = await logits.data();
     console.log(values);
 
     const class_idx = logits.argMax(1).dataSync();
+    const message = {
+        0: `This banana looks ${logits[0] * 100}% green!`,
+        1: `This banana looks ${logits[1] * 100}% rotten or overripe.`,
+        2: `Looks ${logits[2] * 100}% ripe to me!`
+    }
     predict_result.innerText = message[class_idx];
 }
 
